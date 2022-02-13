@@ -1,0 +1,84 @@
+<html manifest=offline.cache> 
+
+<head>
+
+<style>	
+body{background-color:#000024;background-image:url(bg1.png);background-attachment:fixed;background-size:100%;background-repeat:no-repeat;font-family:system-ui;text-align:center}
+button:-moz-focus-inner, button:focus{outline:0;border:none}button{font-family:arial;font-size:20px;text-transform:uppercase;font-weight:700;border:2px solid #404040;border-radius:4px;padding:10px;cursor:pointer;display:inline-block;text-decoration:none;background:0 0;color:#d4d7d8;box-shadow:0 5px 0 #878787}button:hover{font-size:20px;background:#000064;border:2px solid #fff;box-shadow:0 5px 0 #ccc;color:#fff}button:active{background:#ee596f;position:relative;color:#000;top:5px;box-shadow:none}
+</style>
+<meta charset=utf-8>
+<title>KRANSHE JB (V4) + GOLDHEN V2.1</title>
+
+<script> // carrega a cache
+window.applicationCache.ondownloading=function(){localStorage.isCached=!1},window.applicationCache.onprogress=function(e){document.getElementById("progress").innerHTML='Installing Cache Offline: <font color="#ee596f">'+Math.round(e.loaded/e.total*100)+"%</font>"},window.applicationCache.oncached=function(){document.getElementById("progress").innerHTML='Cache <font color="#ee596f">installed</font> successfully!!!',localStorage.isCached=!0,setTimeout(function(){document.getElementById("progress").innerHTML='Cache download process to use the <font color="#ee596f">host offline</font>.',document.getElementById("progress").innerHTML='Exit, <font color="#ee596f">disable the network</font> and return to the browser.', cache=true},2e3)}
+</script>
+
+<script>  // verifica se a cache foi carregada
+function Esconder(){
+if (localStorage.isCached){
+setTimeout(poc,1500);
+}
+}
+</script>
+
+<script> // loader
+function jbdone() {
+progress.innerHTML="Unlocking <font color=\"#ee596f\">Successfully!!!</font>"
+setTimeout(goldhen21, 2000)
+}
+
+function allset() {
+window.progress.innerHTML= LoadedMSG
+}
+
+function LoaderPL() {
+var payload_buffer = chain.syscall(477, 0, 0x300000 , 7, 0x1002, -1, 0);
+var pl = p.array_from_address(payload_buffer, PLS.byteLength*4);
+var buf = new Uint32Array(PLS);
+pl.set(buf,0);
+var pthread = p.malloc(0x10);
+chain.call(libKernelBase.add32(OFFSET_lk_pthread_create), pthread, 0x0, payload_buffer, 0);
+allset();
+}	
+
+function load_poc(){
+var xhr = new XMLHttpRequest();
+xhr.responseType = "arraybuffer";
+xhr.open("GET",PLfile,true);
+xhr.send();
+xhr.onreadystatechange=function(){
+if (xhr.readyState == 4){
+PLS = xhr.response;
+LoaderPL(); 
+}
+};
+}	
+
+function goldhen21(){
+progress.innerHTML="Loading Goldhen v2.1, <font color=\"#ee596f\">WAIT...</font>";
+LoadedMSG="<font style='color:#ffffff; text-shadow: 5px 5px 5px #ff5757;'><b>D&nbsp;O&nbsp;N&nbsp;E&nbsp;.&nbsp;.&nbsp;.&nbsp;&nbsp;G&nbsp;O&nbsp;O&nbsp;D&nbsp;&nbsp;L&nbsp;U&nbsp;C&nbsp;K&nbsp;!&nbsp;!&nbsp;!</b></font>";
+PLfile = "hen.bin";
+out_jb = "AllPL";
+load_poc();
+}
+</script>
+
+<script src="int64.js"></script>
+<script src="rop.js"></script>
+<script src="kexploit.js"></script>
+<script src="webkit.js"></script>
+
+</head>
+
+<body onload="Esconder()">
+<br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br>
+<hr width="65%" size="1" color="#ff5757">
+<div id=progress style=font-size:31px;text-align:center;color:#fff>Running the webkit... Please, <font color="#ee596f">WAIT!!!</font></div>
+<hr width="65%" size="1" color="#ff5757">
+<div style=text-align:left;position:fixed;left:10px;bottom:10px;width:100%;font-size:19px;color:#fff>
+Special thanks: <font color=#6089f6>TheFloW-SpecterDev-ChendoChap-Znullptr-Sleirsgoevy-SiSTRo-and everyone who contributed to the scene.</font>
+</div>
+</body>
+
+</html>
